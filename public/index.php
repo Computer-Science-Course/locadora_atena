@@ -41,10 +41,10 @@
             <input type="checkbox" id="genre_drama" name="genre[]" value="drama">
             <label for="genre_drama">Drama</label>
 
-            <input type="checkbox" id="genre_comedia" name="genre[]" value="comedia">
+            <input type="checkbox" id="genre_comedia" name="genre[]" value="comédia">
             <label for="genre_comedia">Comédia</label>
 
-            <input type="checkbox" id="genre_documentario" name="genre[]" value="documentario">
+            <input type="checkbox" id="genre_documentario" name="genre[]" value="documentário">
             <label for="genre_documentario">Documentário</label>
 
             <input type="checkbox" id="genre_policial" name="genre[]" value="policial">
@@ -53,7 +53,7 @@
             <input type="checkbox" id="genre_terror" name="genre[]" value="terror">
             <label for="genre_terror">Terror</label>
 
-            <input type="checkbox" id="genre_ficcao" name="genre[]" value="ficcao_cientifica">
+            <input type="checkbox" id="genre_ficcao" name="genre[]" value="ficção científica">
             <label for="genre_ficcao">Ficção Científica</label>
 
             <input type="checkbox" id="genre_romance" name="genre[]" value="romance">

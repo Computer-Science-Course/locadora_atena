@@ -1,7 +1,8 @@
 <?php
 
-include '../../Models/Title/CreateTitle.php';
-
+require_once('../../Models/Genre/GetGenre.php');
+require_once('../../Models/Title/CreateTitle.php');
+require_once('../../Models/TitleGenre/CreateTitleGenre.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -11,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $releaseDate = $_POST['release_date'] ?? '';
     $poster = $_POST['poster'] ?? '';
     $nationality = $_POST['nationality'] ?? '';
-    $isErotic = $_POST['is_erotic'] ? true : false;
-    $genres = $_POST['genre'] ?? '';
+    $isErotic = isset($_POST['is_erotic']) ? true : false;
+    $genres = $_POST['genre'] ?? [];
 
     $create_title = new CreateTitle(
         $title,
@@ -25,6 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $genres,
     );
 
-    // $create_title->showInfo();
-    $create_title->saveOnDatabase();
+    $last_id = $create_title->createOnDatabase();
+    $genres_from_db = GetGenre::getAllGenres();
+
+    foreach ($genres_from_db as $genre) {
+        foreach ($genres as $genre_type) {
+            $cleaned_genre_type = strtolower(trim($genre_type));
+            $cleaned_genre = strtolower(trim($genre->getType()));
+
+            if ($cleaned_genre == $cleaned_genre_type) {
+                $create_title_genre = new CreateTitleGenre($last_id, $genre->getId());
+                $create_title_genre->createOnDatabase();
+            }
+        }
+    }
+
 }

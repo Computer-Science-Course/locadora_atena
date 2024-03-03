@@ -1,6 +1,6 @@
 <?php
 /** Class to create a title on database. */
-include '../../Models/Database/Database.php';
+require_once('../../Models/Database/Database.php');
 
 class CreateTitle
 {
@@ -10,9 +10,11 @@ class CreateTitle
     /** @var string */
     private $description;
 
+    /** HH:mm */
     /** @var string */
     private $duration;
 
+    /** YY-dd-mm */
     /** @var string */
     private $releaseDate;
 
@@ -49,23 +51,12 @@ class CreateTitle
         $this->genres = $genres;
     }
 
-    public function showInfo()
-    {
-        echo '' . $this->title . '' . $this->description .
-            '' . $this->duration .
-            '' . $this->releaseDate .
-            '' . $this->poster .
-            '' . $this->nationality .
-            '' . $this->is_eroctic;
-        var_dump($this->genres);
-    }
-
-    public function saveOnDatabase()
+    public function createOnDatabase()
     {
         $table = 'title';
         $sql_fields = 'name, description, duration, release_date, poster, nationality, is_erotic';
         $placeholder = '?, ?, ?, ?, ?, ?, ?';
-        $bind_params = 'ssssssb';
+        $bind_params = 'ssssssi';
         $values = [
             $this->title,
             $this->description,
@@ -76,11 +67,9 @@ class CreateTitle
             $this->is_eroctic,
         ];
 
-        // SQL to insert a new title
-        $sql = 'INSERT INTO ' . $table . ' (' . $sql_fields . ') VALUES (' . $placeholder . ')';
         // Create a new database connection
         $database = new Database();
         // Execute the SQL to create new title
-        $database->create($sql, $bind_params, $values);
+        return $database->create($table, $sql_fields, $placeholder, $bind_params, $values);
     }
 }
