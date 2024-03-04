@@ -10,6 +10,7 @@ $dotenv->load();
 class Database
 {
     private $servername = '';
+    private $port = '';
     private $username = '';
     private $password = '';
     private $database = '';
@@ -17,6 +18,7 @@ class Database
     public function __construct()
     {
         $this->servername = $_ENV['SERVER'];
+        $this->port = $_ENV['PORT'];
         $this->username = $_ENV['USERNAME'];
         $this->password = $_ENV['PASSWORD'];
         $this->database = $_ENV['DATABASE'];
@@ -48,7 +50,8 @@ class Database
             $this->servername,
             $this->username,
             $this->password,
-            $this->database
+            $this->database,
+            $this->port,
         );
 
         // Check connection
@@ -93,7 +96,8 @@ class Database
             $this->servername,
             $this->username,
             $this->password,
-            $this->database
+            $this->database,
+            $this->port,
         );
 
         // Check connection
